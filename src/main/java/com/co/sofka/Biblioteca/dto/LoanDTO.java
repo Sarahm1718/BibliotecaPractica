@@ -1,15 +1,13 @@
-package com.co.sofka.Biblioteca.model;
+package com.co.sofka.Biblioteca.dto;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-@Document
-public class Loan {
-    @Id
+public class PrestamoDTO {
     private String idLoan;
     private String loanData;
     private String userId;
     private String idResource;
+
+    public PrestamoDTO(){
+    }
 
     public String getIdLoan() {
         return idLoan;
