@@ -11,14 +11,14 @@ public class UsuarioMapper {
         User usuario = new User();
         usuario.setUserId(dto.getUserId());
         usuario.setName(dto.getName());
-        usuario.setLastName(dto.getLastName());
+        usuario.setDataUser(dto.getDataUser());
         return usuario;
     }
     public UserDTO fromCollection(User collection){
         UserDTO usuarioDTO = new UserDTO();
         usuarioDTO.setUserId(collection.getUserId());
         usuarioDTO.setName(collection.getName());
-        usuarioDTO.setLastName(collection.getLastName());
+        usuarioDTO.setDataUser(collection.getDataUser());
         return usuarioDTO;
     }
 

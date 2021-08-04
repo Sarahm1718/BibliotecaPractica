@@ -8,7 +8,8 @@ public class User {
     @Id
     private String userId;
     private String name;
-    private String lastName;
+    private String dataUser;
+
 
     public String getUserId() {
         return userId;
@@ -16,6 +17,14 @@ public class User {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getDataUser() {
+        return dataUser;
+    }
+
+    public void setDataUser(String dataUser) {
+        this.dataUser = dataUser;
     }
 
     public String getName() {
@@ -26,11 +35,4 @@ public class User {
         this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 }

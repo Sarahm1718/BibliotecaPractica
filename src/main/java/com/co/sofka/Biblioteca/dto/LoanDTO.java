@@ -5,8 +5,18 @@ public class LoanDTO {
     private String loanData;
     private String userId;
     private String idResource;
+    private boolean stateLoan;
+    private String deliverData;
 
     public LoanDTO(){
+    }
+
+    public boolean isStateLoan() {
+        return stateLoan;
+    }
+
+    public void setStateLoan(boolean stateLoan) {
+        this.stateLoan = stateLoan;
     }
 
     public String getIdLoan() {
@@ -15,6 +25,14 @@ public class LoanDTO {
 
     public void setIdLoan(String idLoan) {
         this.idLoan = idLoan;
+    }
+
+    public String getDeliverData() {
+        return deliverData;
+    }
+
+    public void setDeliverData(String deliverData) {
+        this.deliverData = deliverData;
     }
 
     public String getLoanData() {

@@ -3,11 +3,12 @@ package com.co.sofka.Biblioteca.dto;
 public class UserDTO {
     private String userId;
     private String name;
-    private String lastName;
+    private String dataUser;
 
     public UserDTO(){
 
     }
+
 
     public String getUserId() {
         return userId;
@@ -25,11 +26,11 @@ public class UserDTO {
         this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getDataUser() {
+        return dataUser;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setDataUser(String dataUser) {
+        this.dataUser = dataUser;
     }
 }
