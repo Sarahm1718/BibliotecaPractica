@@ -1,12 +1,12 @@
 package com.co.sofka.Biblioteca.dto;
 
-public class UsuarioDTO {
+public class UserDTO {
     private String userId;
     private String name;
     private String lastName;
 
-    public UsuarioDTO(){
-        
+    public UserDTO(){
+
     }
 
     public String getUserId() {

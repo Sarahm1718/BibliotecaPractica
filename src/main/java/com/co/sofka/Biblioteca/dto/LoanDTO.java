@@ -1,12 +1,12 @@
 package com.co.sofka.Biblioteca.dto;
 
-public class PrestamoDTO {
+public class LoanDTO {
     private String idLoan;
     private String loanData;
     private String userId;
     private String idResource;
 
-    public PrestamoDTO(){
+    public LoanDTO(){
     }
 
     public String getIdLoan() {

@@ -1,6 +1,6 @@
 package com.co.sofka.Biblioteca.dto;
 
-public class RecursoDTO {
+public class ResourcebDTO {
     private String idResource;
     private String tittle;
     private String nombreAutor;
@@ -8,7 +8,7 @@ public class RecursoDTO {
     private String thematic;
     private boolean availability;
 
-    public RecursoDTO(){
+    public ResourcebDTO(){
 
     }
 
