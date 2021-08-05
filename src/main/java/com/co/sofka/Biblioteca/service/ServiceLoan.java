@@ -22,18 +22,18 @@ public class ServiceLoan {
     }
 
     public LoanDTO getByIdLoan(String id) {
-        Loan recursos = repositoryLoan.findById(id).orElseThrow();
-        return mapper.fromCollection(recursos);
+        Loan prestamo = repositoryLoan.findById(id).orElseThrow();
+        return mapper.fromCollection(prestamo);
     }
 
     public List<LoanDTO> getAllLoan() {
-        List<Loan> recursos = (List<Loan>) repositoryLoan.findAll();
-        return mapper.fromCollectionList( recursos);
+        List<Loan> prestamo = (List<Loan>) repositoryLoan.findAll();
+        return mapper.fromCollectionList( prestamo);
     }
 
     public LoanDTO modifyLoan(LoanDTO loanDTO) {
         Loan prestamo = mapper.fromDTO(loanDTO);
-        repositoryLoan.findById(prestamo.getIdLoan()).orElseThrow(() -> new RuntimeException("prestámo no encontrado"));
+        repositoryLoan.findById(prestamo.getIdLoan());
         return mapper.fromCollection(repositoryLoan.save(prestamo));
     }
 
