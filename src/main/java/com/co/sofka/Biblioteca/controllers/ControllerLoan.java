@@ -1,7 +1,6 @@
 package com.co.sofka.Biblioteca.controllers;
 
 import com.co.sofka.Biblioteca.dto.LoanDTO;
-import com.co.sofka.Biblioteca.dto.UserDTO;
 import com.co.sofka.Biblioteca.service.ServiceLoan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,19 +16,30 @@ public class ControllerLoan {
     ServiceLoan serviceLoan;
 
     @PostMapping("/crearPrestamo")
-    public ResponseEntity<LoanDTO> create(@RequestBody LoanDTO loanDTO) {
-        return new ResponseEntity(serviceLoan.saveLoan(loanDTO), HttpStatus.CREATED);
+    public String create(@RequestBody LoanDTO loanDTO) {
+        return serviceLoan.saveLoan(loanDTO);
+    }
+
+    @PutMapping("/prestar/{id}")
+    public ResponseEntity prestar(@PathVariable("id")String id) {
+        return new ResponseEntity(serviceLoan.prestar(id), HttpStatus.OK);
+    }
+
+    @PutMapping("/devolver/{id}")
+    public ResponseEntity devolver(@PathVariable("id")String id) {
+        return new ResponseEntity(serviceLoan.devolverPrestamo(id), HttpStatus.OK);
     }
 
     @GetMapping("/buscarPrestamo/{id}")
-    public ResponseEntity<LoanDTO> findbyId(@PathVariable("id") String id) {
-        return new ResponseEntity(serviceLoan.getByIdLoan(id), HttpStatus.OK);
+    public LoanDTO findbyId(@PathVariable("id") String id) {
+        return serviceLoan.getByIdLoan(id);
     }
 
     @GetMapping("/todosPrestamo")
     public ResponseEntity<List<LoanDTO>> findAll() {
         return new ResponseEntity(serviceLoan.getAllLoan(), HttpStatus.OK);
     }
+
     @PutMapping("/modificarPrestamo")
     public ResponseEntity<LoanDTO> update(@RequestBody LoanDTO loanDTO) {
         if (loanDTO.getIdLoan() != null) {
@@ -48,4 +58,10 @@ public class ControllerLoan {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/buscarIdRecurso/{idResource}")
+    public ResponseEntity<List<LoanDTO>> buscarTipoRecurso(@PathVariable("idResource") String idResource) {
+        return new ResponseEntity(serviceLoan.buscarPorIdRecurso(idResource), HttpStatus.OK);
+    }
+
 }

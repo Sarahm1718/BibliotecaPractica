@@ -16,21 +16,21 @@ public class ControllerUser {
     @Autowired
     ServiceUser serviceUser;
 
-    @PostMapping("/crearRecurso")
+    @PostMapping("/crearUsuario")
     public ResponseEntity<UserDTO> create(@RequestBody UserDTO userDTO) {
         return new ResponseEntity(serviceUser.crearUser(userDTO), HttpStatus.CREATED);
     }
 
-    @GetMapping("/buscarRecurso/{id}")
+    @GetMapping("/buscarUsuario/{id}")
     public ResponseEntity<UserDTO> findbyId(@PathVariable("id") String id) {
         return new ResponseEntity(serviceUser.obtenerPorIdUser(id), HttpStatus.OK);
     }
 
-    @GetMapping("/todosRecurso")
+    @GetMapping("/todosUsuario")
     public ResponseEntity<List<UserDTO>> findAll() {
         return new ResponseEntity(serviceUser.obtenerTodosUser(), HttpStatus.OK);
     }
-    @PutMapping("/modificarRecurso")
+    @PutMapping("/modificarUsuario")
     public ResponseEntity<UserDTO> update(@RequestBody UserDTO userDTO) {
         if (userDTO.getUserId() != null) {
             return new ResponseEntity(serviceUser.modificarUser(userDTO), HttpStatus.OK);
@@ -38,7 +38,7 @@ public class ControllerUser {
         return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping("/borrarPrestamo/{id}")
+    @DeleteMapping("/borrarUsuario/{id}")
     public ResponseEntity delete(@PathVariable("id") String id) {
         try {
             serviceUser.borrarUser(id);

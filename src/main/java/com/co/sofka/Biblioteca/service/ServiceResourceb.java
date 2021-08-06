@@ -8,6 +8,7 @@ import com.co.sofka.Biblioteca.repositories.RepositoryResourceb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ServiceResourceb {
@@ -16,13 +17,22 @@ public class ServiceResourceb {
     RecursoMapper mapper= new RecursoMapper();
 
     public ResourcebDTO crear(ResourcebDTO resourcebDTO) {
-        Resourceb empleado = mapper.fromDTO(resourcebDTO);
-        return mapper.fromCollection(repositoryResourceb.save(empleado));
+        Resourceb resourceb = mapper.fromDTO(resourcebDTO);
+        return mapper.fromCollection(repositoryResourceb.save(resourceb));
     }
 
-    public ResourcebDTO obtenerPorId(String id) {
-        Resourceb recursos = repositoryResourceb.findById(id).orElseThrow(() -> new RuntimeException("Libro no encontrado"));
-        return mapper.fromCollection(recursos);
+
+    public String obtenerPorId(String id) {Optional<Resourceb> resourceb = repositoryResourceb.findById(id);
+
+        if (resourceb.isEmpty()) {
+            return "El recurso no existe.";
+        }
+        if (resourceb.get().isAvailability(Boolean.FALSE)== false) {
+
+            return "El recurso no está disponible.";
+        } else {
+            return "El recurso si está disponible.";
+        }
     }
 
     public List<ResourcebDTO> obtenerTodos() {
@@ -38,5 +48,15 @@ public class ServiceResourceb {
 
     public void borrar(String id) {
         repositoryResourceb.deleteById(id);
+    }
+
+    public List<ResourcebDTO> obtenerRecursosTipo(String typeResource) {
+        List<Resourceb> recurso = (List<Resourceb>) repositoryResourceb.findByTypeResource(typeResource);
+        return mapper.fromCollectionList(recurso);
+    }
+
+    public List<ResourcebDTO> obtenerTematica(String thematic){
+        List<Resourceb> recurso = (List<Resourceb>) repositoryResourceb.findByThematic(thematic);
+        return mapper.fromCollectionList(recurso);
     }
 }

@@ -10,17 +10,8 @@ public class Loan {
     private String loanData;
     private String userId;
     private String idResource;
-    private boolean stateLoan;
     private String deliverData;
 
-
-    public boolean isStateLoan() {
-        return stateLoan;
-    }
-
-    public void setStateLoan(boolean stateLoan) {
-        this.stateLoan = stateLoan;
-    }
 
     public String getDeliverData() {
         return deliverData;

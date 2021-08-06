@@ -20,6 +20,7 @@ public class ControllerResourceb {
         return new ResponseEntity(serviceResourceb.crear(resourcebDTO), HttpStatus.CREATED);
     }
 
+
     @GetMapping("/buscarRecurso/{id}")
     public ResponseEntity<ResourcebDTO> findbyId(@PathVariable("id") String id) {
         return new ResponseEntity(serviceResourceb.obtenerPorId(id), HttpStatus.OK);
@@ -37,6 +38,7 @@ public class ControllerResourceb {
         return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
+
     @DeleteMapping("/borrarPrestamo/{id}")
     public ResponseEntity delete(@PathVariable("id") String id) {
         try {
@@ -46,5 +48,15 @@ public class ControllerResourceb {
             System.out.println(e.getMessage());
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/todosRecursos/{typeResource}")
+    public ResponseEntity<List<ResourcebDTO>> buscarTipoRecurso(@PathVariable("typeResource") String typeResource) {
+        return new ResponseEntity(serviceResourceb.obtenerRecursosTipo(typeResource), HttpStatus.OK);
+    }
+
+    @GetMapping("/tematicas/{thematic}")
+    public ResponseEntity<List<ResourcebDTO>> buscarTematica(@PathVariable("thematic") String thematic){
+        return new ResponseEntity(serviceResourceb.obtenerTematica(thematic), HttpStatus.OK);
     }
 }

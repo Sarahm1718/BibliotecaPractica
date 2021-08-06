@@ -53,7 +53,7 @@ public class Resourceb {
         this.thematic = thematic;
     }
 
-    public boolean isAvailability() {
+    public boolean isAvailability(Boolean aTrue) {
         return availability;
     }
 

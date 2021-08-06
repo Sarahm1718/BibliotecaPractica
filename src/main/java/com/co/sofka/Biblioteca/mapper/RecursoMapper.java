@@ -25,7 +25,7 @@ public class RecursoMapper {
         recursoDTO.setNombreAutor(collection.getNombreAutor());
         recursoDTO.setTypeResource(collection.getTypeResource());
         recursoDTO.setThematic(collection.getThematic());
-        recursoDTO.setAvailability(collection.isAvailability());
+        recursoDTO.setAvailability(collection.isAvailability(Boolean.TRUE));
         return recursoDTO;
     }
 

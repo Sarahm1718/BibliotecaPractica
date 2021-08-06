@@ -7,5 +7,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface RepositoryResourceb extends MongoRepository<Resourceb, String> {
-
+    Iterable<Resourceb> findByTypeResource(String typeResource);
+    Iterable<Resourceb> findByThematic(String thematic);
 }

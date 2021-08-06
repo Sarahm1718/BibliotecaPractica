@@ -13,7 +13,6 @@ public class PrestamoMapper {
         prestamo.setLoanData(dto.getLoanData());
         prestamo.setUserId(dto.getUserId());
         prestamo.setIdResource(dto.getIdResource());
-        prestamo.setStateLoan(dto.isStateLoan());
         prestamo.setDeliverData(dto.getDeliverData());
         return prestamo;
     }
@@ -23,7 +22,6 @@ public class PrestamoMapper {
         prestamoDTO.setLoanData(collection.getLoanData());
         prestamoDTO.setUserId(collection.getUserId());
         prestamoDTO.setIdResource(collection.getIdResource());
-        prestamoDTO.setStateLoan(collection.isStateLoan());
         prestamoDTO.setDeliverData(collection.getDeliverData());
         return prestamoDTO;
     }
