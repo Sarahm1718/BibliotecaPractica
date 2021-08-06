@@ -26,7 +26,7 @@ public class ControllerUser {
         return new ResponseEntity(serviceUser.obtenerPorIdUser(id), HttpStatus.OK);
     }
 
-    @GetMapping("/todosUsuario")
+    @GetMapping("/obtenerTodosUser")
     public ResponseEntity<List<UserDTO>> findAll() {
         return new ResponseEntity(serviceUser.obtenerTodosUser(), HttpStatus.OK);
     }

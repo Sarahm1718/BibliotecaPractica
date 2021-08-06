@@ -29,8 +29,8 @@ public class ServiceUser {
         }
 
         public List<UserDTO> obtenerTodosUser() {
-            List<User> recursos = (List<User>) repositoryUser.findAll();
-            return mapper.fromCollectionList( recursos);
+            List<User> user = (List<User>) repositoryUser.findAll();
+            return mapper.fromCollectionList( user);
         }
 
         public UserDTO modificarUser(UserDTO userDTO) {
