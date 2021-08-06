@@ -82,9 +82,6 @@ public class ServiceLoanTest {
         loan3.setIdResource("sarg");
         loan3.setDeliverData(objSDF.format(objDate));
 
-        Mockito.when(repositoryLoan.save(any())).thenReturn((loan1));
-
-       // var resultado = serviceLoan.saveLoan(loan3);
-        //Assertions.assertEquals(loan1.getIdLoan(),resultado);
+        Mockito.when(repositoryLoan.save(any())).thenReturn("Puede realizar su prestámo.");
     }
 }
