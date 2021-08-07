@@ -5,7 +5,11 @@ import com.co.sofka.Biblioteca.repositories.RepositoryLoan;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -13,16 +17,17 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class ServiceLoanTest {
-    @MockBean
+    @Mock
     private RepositoryLoan repositoryLoan;
 
-    @Autowired
+    @InjectMocks
     private ServiceLoan serviceLoan;
 
     private Date objDate = new Date();
@@ -83,5 +88,63 @@ public class ServiceLoanTest {
         loan3.setDeliverData(objSDF.format(objDate));
 
         Mockito.when(repositoryLoan.save(any())).thenReturn("Puede realizar su prestámo.");
+
+        var respuesta = serviceLoan.saveLoan(loan3);
+
+        //Necesitamos saber como obtener la respuesta para que funcione.
+        Assertions.assertEquals(loan1.getIdLoan(), respuesta.toString());
     }
+
+    @Test
+    void modifyLoan(){
+        var loan1 = new Loan();
+        loan1.setIdLoan("dytg");
+        loan1.setLoanData(objSDF.format(objDate));
+        loan1.setUserId("grey");
+        loan1.setIdResource("jyta");
+        loan1.setDeliverData(objSDF.format(objDate));
+
+        var loan3 = new LoanDTO();
+        loan3.setIdLoan("dytg");
+        loan3.setLoanData(objSDF.format(objDate));
+        loan3.setUserId("grey");
+        loan3.setIdResource("jyta");
+        loan3.setDeliverData(objSDF.format(objDate));
+
+        Mockito.when(repositoryLoan.save(any())).thenReturn((loan1));
+
+        var respuesta = serviceLoan.modifyLoan(loan3);
+        Assertions.assertEquals(loan1.getIdLoan(), respuesta.getIdLoan());
+    }
+
+    @Test
+    void deleteLoan(){
+        var loan = new Loan();
+        loan.setIdLoan("1");
+
+        Mockito.doNothing().when(repositoryLoan).deleteById("1");
+
+        serviceLoan.deleteLoan("1");
+
+        Mockito.verify(repositoryLoan).deleteById("1");
+        Mockito.verify(repositoryLoan).findById("1");
+
+    }
+
+    @Test
+    void getByIdLoan(){
+        var loan1 = new Loan();
+        loan1.setIdLoan("3");
+
+        var loan3 = new LoanDTO();
+        loan3.setIdLoan("3");
+
+        Mockito.when(repositoryLoan.save(any())).thenReturn(loan1);
+
+
+        var respuesta = serviceLoan.modifyLoan(loan3);
+        Assertions.assertEquals(loan1.getIdLoan(), respuesta.getIdLoan());
+    }
+
+
 }

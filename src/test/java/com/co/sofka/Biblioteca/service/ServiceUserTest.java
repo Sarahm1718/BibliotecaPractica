@@ -6,10 +6,16 @@ import com.co.sofka.Biblioteca.repositories.RepositoryUser;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
+
 import static org.mockito.ArgumentMatchers.any;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,12 +23,12 @@ import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class ServiceUserTest {
-    @MockBean
+    @Mock
     private RepositoryUser repositoryUser;
 
-    @Autowired
+    @InjectMocks
     private ServiceUser serviceUser;
 
     private Date objDate = new Date();
@@ -68,8 +74,8 @@ public class ServiceUserTest {
         user1.setDataUser(objSDF.format(objDate));
 
         var user3 = new UserDTO();
-        user3.setUserId("saol");
-        user3.setName("johan bermudez");
+        user3.setUserId("grey");
+        user3.setName("sara durango");
         user3.setDataUser(objSDF.format(objDate));
 
         Mockito.when(repositoryUser.save(any())).thenReturn((user1));
