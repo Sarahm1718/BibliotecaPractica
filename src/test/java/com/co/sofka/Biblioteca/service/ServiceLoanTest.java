@@ -1,7 +1,9 @@
 package com.co.sofka.Biblioteca.service;
 import com.co.sofka.Biblioteca.dto.LoanDTO;
 import com.co.sofka.Biblioteca.model.Loan;
+import com.co.sofka.Biblioteca.model.Resourceb;
 import com.co.sofka.Biblioteca.repositories.RepositoryLoan;
+import com.co.sofka.Biblioteca.repositories.RepositoryResourceb;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,8 +29,14 @@ public class ServiceLoanTest {
     @Mock
     private RepositoryLoan repositoryLoan;
 
+    @Mock
+    private RepositoryResourceb repositoryResourceb;
+
     @InjectMocks
     private ServiceLoan serviceLoan;
+
+    @InjectMocks
+    private  ServiceResourceb serviceResourceb;
 
     private Date objDate = new Date();
     private String strDateFormat = "hh: mm: ss a dd-MMM-aaaa";
@@ -133,18 +141,67 @@ public class ServiceLoanTest {
 
     @Test
     void getByIdLoan(){
-        var loan1 = new Loan();
-        loan1.setIdLoan("3");
-
-        var loan3 = new LoanDTO();
-        loan3.setIdLoan("3");
-
-        Mockito.when(repositoryLoan.save(any())).thenReturn(loan1);
+        var loan = new Loan();
+        loan.setIdLoan("3");
 
 
-        var respuesta = serviceLoan.modifyLoan(loan3);
-        Assertions.assertEquals(loan1.getIdLoan(), respuesta.getIdLoan());
+        Mockito.when(repositoryLoan.existsById("3")).thenReturn(true);
+        Mockito.when(repositoryLoan.findById("3")).thenReturn(Optional.of(loan));
+
+        LoanDTO find = serviceLoan.getByIdLoan("3");
+        Mockito.verify(repositoryLoan).findById("3");
+
+        Assertions.assertEquals(loan.getIdLoan(),find.getIdLoan());
+    }
+
+    @Test
+    void prestar(){
+        var recurso = new Resourceb();
+        recurso.setIdResource("17");
+        recurso.setTittle("conejito");
+        recurso.setNombreAutor("sara");
+        recurso.setTypeResource("revista");
+        recurso.setThematic("infantil");
+        recurso.setAvailability(true);
+
+        var prestamo = new Loan();
+        prestamo.setIdLoan("12");
+        prestamo.setLoanData("11/11");
+        prestamo.setUserId("34");
+        prestamo.setIdResource("17");
+        prestamo.setDeliverData("17/09");
+
+        Mockito.when(repositoryResourceb.findById("17")).thenReturn(Optional.of(recurso));
+
+        String find = serviceLoan.prestar("17");
+
+        Assertions.assertEquals("El prestámo ha sido confirmado",find);
+    }
+
+    @Test
+    void devolverPrestamo(){
+        var recurso = new Resourceb();
+        recurso.setIdResource("17");
+        recurso.setTittle("conejito");
+        recurso.setNombreAutor("sara");
+        recurso.setTypeResource("revista");
+        recurso.setThematic("infantil");
+        recurso.setAvailability(false);
+
+        var prestamo = new Loan();
+        prestamo.setIdLoan("12");
+        prestamo.setLoanData("11/11");
+        prestamo.setUserId("34");
+        prestamo.setIdResource("17");
+        prestamo.setDeliverData("17/09");
+
+        Mockito.when(repositoryResourceb.findById("17")).thenReturn(Optional.of(recurso));
+
+        String find = serviceLoan.devolverPrestamo("17");
+
+        Assertions.assertEquals("El recurso lo has devuelto exitosamente.",find);
+    }
+
     }
 
 
-}
