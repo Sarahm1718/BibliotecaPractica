@@ -1,5 +1,4 @@
 package com.co.sofka.Biblioteca.service;
-
 import com.co.sofka.Biblioteca.dto.UserDTO;
 import com.co.sofka.Biblioteca.model.User;
 import com.co.sofka.Biblioteca.repositories.RepositoryUser;
@@ -11,17 +10,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.mockito.ArgumentMatchers.any;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.Optional;
+import static org.mockito.ArgumentMatchers.anyString;
 
 @ExtendWith(MockitoExtension.class)
 public class ServiceUserTest {
@@ -83,6 +78,54 @@ public class ServiceUserTest {
         var resultado = serviceUser.crearUser(user3);
         Assertions.assertEquals(user1.getUserId(),resultado.getUserId());
     }
+    @Test
+    void obtenerPorIdUser(){
+        var user = new User();
+        user.setUserId("6");
 
+        Mockito.when(repositoryUser.existsById("6")).thenReturn(true);
+
+        Mockito.when(repositoryUser.findById("6")).thenReturn(Optional.of(user));
+
+        UserDTO find = serviceUser.obtenerPorIdUser("6");
+
+        Mockito.verify(repositoryUser).findById("6");
+
+        Assertions.assertEquals(user.getUserId(),find.getUserId());
+    }
+
+    @Test
+    void modificarUser(){
+        var user1 = new User();
+        user1.setUserId("grey");
+        user1.setName("sara durango");
+        user1.setDataUser(objSDF.format(objDate));
+
+        var user2 = new UserDTO();
+        user2.setUserId("frey");
+        user2.setName("carolina hincapie");
+        user2.setDataUser(objSDF.format(objDate));
+
+        Mockito.when(repositoryUser.findById(anyString())).thenReturn(Optional.of(user1));
+
+        Mockito.when(repositoryUser.save(any(User.class))).thenReturn(user1);
+
+        UserDTO find = serviceUser.modificarUser(user2);
+        Assertions.assertEquals(user2.getUserId(),find.getUserId());
+    }
+
+    @Test
+    void borrarUser(){
+        var user = new User();
+        user.setUserId("1");
+
+        Mockito.doNothing().when(repositoryUser).deleteById("1");
+
+        serviceUser.borrarUser("1");
+
+        Mockito.verify(repositoryUser).deleteById("1");
+        Mockito.verify(repositoryUser).findById("1");
+
+    }
 
 }
